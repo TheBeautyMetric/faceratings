@@ -11,91 +11,20 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
   <style>
-    #loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
+    /* Your existing styles */
+    .top-right-logo {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 50;
     }
-    body {
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('handsome-giga-chad-hmsvijj0ji4dhedr.jpg'); /* Add your image path here */
-  background-size: cover;
-  background-position: center;
-  filter: blur(8px) brightness(0.7); /* Adjust blur and darkness */
-  z-index: -1;
-  opacity: 0.7; /* Adjust opacity */
-}
-
-    .detail-score {
-      display: flex;
-      justify-content: space-between;
-      margin: 5px 0;
-    }
-    #canvas {
-      max-width: 100%;
-      border: 2px solid #3b82f6;
-      border-radius: 8px;
-    }
-    .debug-line {
-      stroke: rgba(0,255,0,0.2);
-      stroke-width: 1;
-    }
+    /* Keep all other existing styles */
   </style>
+
 </head>
 <body class="min-h-screen bg-gray-900 text-white flex items-center justify-center p-4">
 
-<!-- Navigation Bar -->
-<nav class="bg-gray-800 p-4">
-  <div class="flex justify-center space-x-6">
-    <!-- AI Rating Tab -->
-    <a href="index.html" 
-       class="px-3 py-2 rounded-md text-sm font-medium 
-              hover:bg-gray-700 hover:text-white 
-              transition duration-300
-              ${window.location.pathname.includes('index') ? 'bg-gray-900 text-white' : 'text-blue-300'}">
-      AI Rating
-    </a>
-    
-    <!-- PSL Score Tab -->
-    <a href="psl-score.html" 
-       class="px-3 py-2 rounded-md text-sm font-medium 
-              hover:bg-gray-700 hover:text-white 
-              transition duration-300
-              ${window.location.pathname.includes('psl-score') ? 'bg-gray-900 text-white' : 'text-blue-300'}">
-      PSL Score
-    </a>
-    
-    <!-- About Tab -->
-    <a href="about.html" 
-       class="px-3 py-2 rounded-md text-sm font-medium 
-              hover:bg-gray-700 hover:text-white 
-              transition duration-300
-              ${window.location.pathname.includes('about') ? 'bg-gray-900 text-white' : 'text-blue-300'}">
-      About
-    </a>
-  </div>
-</nav>
-  
+
   <!-- Loading Overlay -->
   <div id="loading">
     <div class="text-center">
@@ -112,19 +41,110 @@ body::before {
 
 
  <style>
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('gigachad.jpg'); /* Change this path */
+      background-size: cover;
+      background-position: center;
+      filter: blur(8px) brightness(0.7);
+      z-index: -1;
+    }
+
+    .main-content {
+      background-color: rgba(31, 41, 55, 0.85);
+      backdrop-filter: blur(2px);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+
     .top-right-logo {
       position: absolute;
       top: 10px;
       right: 10px;
     }
   </style>
+
 </head>
 <body>
 
 
 
 
-  <div class="bg-gray-800 bg-opacity-90 p-6 rounded-xl shadow-2xl w-full max-w-md">
+
+<!-- Navigation - Force Left Aligned -->
+<nav>
+    <div class="flex space-x-4">
+      <a href="index.html" class="nav-button">AI Rating</a>
+      <a href="psl-score.html" class="nav-button">PSL Score</a>
+      <a href="about.html" class="nav-button">About</a>
+    </div>
+  </nav>
+
+
+<style>
+
+  /* Navigation Bar Styles */
+nav {
+  background-color: transparent; /* Removes gray background */
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 40;
+}
+
+
+.nav-container {
+  display: flex;
+  gap: 0.5rem; /* Space between buttons */
+}
+
+.nav-button {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px; /* Slightly rounded corners */
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  background-color: rgba(31, 41, 55, 0); /* Semi-transparent gray-800 */
+  backdrop-filter: blur(4px); /* Frosted glass effect */
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+}
+
+.nav-button:hover {
+  background-color: rgba(17, 24, 39, 0.9); /* Darker on hover */
+  transform: translateY(-1px);
+}
+
+.nav-button.active {
+  background-color: rgba(59, 130, 246, 0.9); /* blue-500 when active */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove default link styling */
+.nav-button {
+  text-decoration: none;
+  outline: none;
+}
+
+</style>
+
+
+
+  <div class="bg-gray-800 bg-opacity-25 p-6 rounded-xl shadow-2xl w-full max-w-md">
     <h1 class="text-2xl font-bold text-center mb-2">Face Rating</h1>
     <p class="text-sm text-gray-400 text-center mb-6">Upload a clear frontal face photo</p>
 
@@ -157,7 +177,11 @@ body::before {
           <span class="text-4xl font-bold text-blue-400" id="score">0.0</span>
           <span class="text-gray-400">/10</span>
         </div>
-        <canvas id="canvas" class="mb-4"></canvas>
+
+        <div class="flex justify-center">
+  <canvas id="canvas" class="mb-4 max-w-full h-auto border rounded-lg"></canvas>
+</div>
+
         <div class="space-y-2">
           <div class="detail-score">
             <span>Symmetry:</span>
@@ -171,11 +195,7 @@ body::before {
             <span>Facial Structure and Sexual Dimorphism:</span>
             <span id="dimorphismScore" class="font-mono">0.0</span>
           </div>
-          <div class="detail-score">
-            <span>Canthal Tilt:</span>
-            <span id="canthaltilt" class="font-mono">0.0</span>
-          </div>
-        </div>
+                 </div>
       </div>
     </div>
 
@@ -480,12 +500,28 @@ function calculateCanthalTilt(landmarks) {
 
 
         // Weighted total score
-        const totalScore = (
-  symmetryScore * 0.21 +
-  goldenRatioScore * 0.37 +
-  dimorphismScore * 0.29 +
-  tiltScore * 0.08
-);
+        totalScore =(
+                symmetryScore * 0.12 +
+                goldenRatioScore * 0.28 +
+                dimorphismScore * 0.55 +
+                tiltScore * 0.05
+        );
+         function custom_sigmoid_transform(x){
+
+    center = 7.0;
+    steepness = 3.0;
+    max_shift = 2.0;
+
+
+    shifted = x - center
+    transformed = center + max_shift * (2 / (1 + Math.exp(-steepness * shifted)) )- max_shift;
+
+
+    return Math.max(1, Math.min(10, transformed))
+         }
+
+        totalScore = custom_sigmoid_transform(totalScore);
+
 
         // Draw landmarks if enabled
         if (elements.showLandmarks.checked) {
@@ -554,7 +590,7 @@ function calculateCanthalTilt(landmarks) {
         elements.symmetryScore.textContent = scores.symmetry.toFixed(1);
         elements.goldenRatioScore.textContent = scores.goldenRatio.toFixed(1);
         elements.dimorphismScore.textContent = scores.dimorphism.toFixed(1);
-        elements.canthaltilt.textContent = scores.canthaltilt.toFixed(1);
+
 
 
         elements.results.classList.remove('hidden');
