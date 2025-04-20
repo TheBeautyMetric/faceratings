@@ -63,6 +63,39 @@ body::before {
   </style>
 </head>
 <body class="min-h-screen bg-gray-900 text-white flex items-center justify-center p-4">
+
+<!-- Navigation Bar -->
+<nav class="bg-gray-800 p-4">
+  <div class="flex justify-center space-x-6">
+    <!-- AI Rating Tab -->
+    <a href="index.html" 
+       class="px-3 py-2 rounded-md text-sm font-medium 
+              hover:bg-gray-700 hover:text-white 
+              transition duration-300
+              ${window.location.pathname.includes('index') ? 'bg-gray-900 text-white' : 'text-blue-300'}">
+      AI Rating
+    </a>
+    
+    <!-- PSL Score Tab -->
+    <a href="psl-score.html" 
+       class="px-3 py-2 rounded-md text-sm font-medium 
+              hover:bg-gray-700 hover:text-white 
+              transition duration-300
+              ${window.location.pathname.includes('psl-score') ? 'bg-gray-900 text-white' : 'text-blue-300'}">
+      PSL Score
+    </a>
+    
+    <!-- About Tab -->
+    <a href="about.html" 
+       class="px-3 py-2 rounded-md text-sm font-medium 
+              hover:bg-gray-700 hover:text-white 
+              transition duration-300
+              ${window.location.pathname.includes('about') ? 'bg-gray-900 text-white' : 'text-blue-300'}">
+      About
+    </a>
+  </div>
+</nav>
+  
   <!-- Loading Overlay -->
   <div id="loading">
     <div class="text-center">
@@ -73,11 +106,7 @@ body::before {
   </div>
 
 
-  <nav class="flex justify-center space-x-4 p-4 bg-gray-800">
-  <a href="index.html" class="text-blue-300 hover:text-white">AI Face Rating</a>
-  <a href="manual-rating.html" class="text-blue-300 hover:text-white">Manual Rating</a>
-  <a href="about.html" class="text-blue-300 hover:text-white">About Me</a>
-</nav>
+
 
   <!-- Main Content -->
 
@@ -549,5 +578,15 @@ function calculateCanthalTilt(landmarks) {
       }
     });
   </script>
+
+  <script>
+  // Highlight current page in nav
+  document.querySelectorAll('nav a').forEach(link => {
+    if (link.href === window.location.href) {
+      link.classList.add('bg-gray-900', 'text-white');
+      link.classList.remove('text-blue-300');
+    }
+  });
+</script>
 </body>
 </html>
