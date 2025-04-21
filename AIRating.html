@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <a href="\" class="top-right-logo">
+    <img src="logo.png" alt="Logo" style="height: 60px;">
+  </a>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Face Rating</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <style>
+    /* Your existing styles */
+    .top-right-logo {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 50;
+    }
+    /* Keep all other existing styles */
+  </style>
+
+</head>
+<body class="min-h-screen bg-gray-900 text-white flex items-center justify-center p-4">
+
+
+  <!-- Loading Overlay -->
+  <div id="loading">
+    <div class="text-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+      <p class="text-xl">Loading AI Models...</p>
+      <p id="modelStatus" class="text-blue-300">Initializing face detection</p>
+    </div>
+  </div>
+
+
+
+
+  <!-- Main Content -->
+
+
+ <style>
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('chico.jpg'); /* Change this path */
+      background-size: cover;
+      background-position: center;
+      filter: blur(0px) brightness(0.7);
+      z-index: -1;
+    }
+
+    .main-content {
+      background-color: rgba(31, 41, 55, 0.85);
+      backdrop-filter: blur(2px);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+
+    .top-right-logo {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  </style>
+
+</head>
+<body>
+
+
+
+
+
+<!-- Navigation - Force Left Aligned -->
+<nav>
+    <div class="flex space-x-4">
+      <a href="AIRating.html" class="nav-button active">AI Face Rating</a>
+      <a href="ExpertRating.html" class="nav-button">Expert Face Rating</a>
+      <a href="about.html" class="nav-button">About Us</a>
+      <a href="support.html" class="nav-button">Buy Us A Coffee</a>
+    </div>
+  </nav>
+
+<style>
+
+  /* Navigation Bar Styles */
+nav {
+  background-color: transparent; /* Removes gray background */
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 40;
+}
+
+
+.nav-container {
+  display: flex;
+  gap: 0.5rem; /* Space between buttons */
+}
+
+.nav-button {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px; /* Slightly rounded corners */
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  background-color: rgba(31, 41, 55, 0); /* Semi-transparent gray-800 */
+  backdrop-filter: blur(4px); /* Frosted glass effect */
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+}
+
+.nav-button:hover {
+  background-color: rgba(17, 24, 39, 0.9); /* Darker on hover */
+  transform: translateY(-1px);
+}
+
+.nav-button.active {
+  background-color: rgba(59, 130, 246, 0.2); /* blue-500 when active */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove default link styling */
+.nav-button {
+  text-decoration: none;
+  outline: none;
+}
+
+</style>
+
+
+
+  <div class="bg-gray-800 bg-opacity-25 p-6 rounded-xl shadow-2xl w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-2">AI Face Rating</h1>
+    <p class="text-sm text-gray-400 text-center mb-6">Upload a clear frontal face photo</p>
+
+    <form id="uploadForm" class="mb-4">
+      <div class="flex flex-col space-y-4">
+        <input type="file" id="imageUpload" accept="image/*" class="hidden">
+        <label for="imageUpload" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded cursor-pointer text-center">
+          Choose Image
+        </label>
+        <div class="flex items-center">
+          <input type="checkbox" id="showLandmarks" class="mr-2">
+          <label for="showLandmarks">Show facial landmarks</label>
+        </div>
+        <div class="flex items-center">
+          <input type="radio" id="genderMale" name="gender" value="male" checked class="mr-2">
+          <label for="genderMale" class="mr-4">Male</label>
+          <input type="radio" id="genderFemale" name="gender" value="female" class="mr-2">
+          <label for="genderFemale">Female</label>
+        </div>
+        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded">
+          Analyze Face
+        </button>
+      </div>
+    </form>
+
+    <div id="results" class="hidden">
+      <div class="bg-gray-700 bg-opacity-25 p-4 rounded-lg mb-4">
+        <h2 class="text-xl font-semibold mb-2 text-center">Analysis Results</h2>
+        <div class="text-center mb-4">
+          <span class="text-4xl font-bold text-blue-400" id="score">0.0</span>
+          <span class="text-gray-400">/10</span>
+        </div>
+
+        <div class="flex justify-center">
+  <canvas id="canvas" class="mb-4 max-w-full h-auto border rounded-lg"></canvas>
+</div>
+
+        <div class="space-y-2">
+          <div class="detail-score">
+            <span>Symmetry:</span>
+            <span id="symmetryScore" class="font-mono">0.0</span>
+          </div>
+          <div class="detail-score">
+            <span>Proportions:</span>
+            <span id="goldenRatioScore" class="font-mono">0.0</span>
+          </div>
+          <div class="detail-score">
+            <span>Facial Structure and Sexual Dimorphism:</span>
+            <span id="dimorphismScore" class="font-mono">0.0</span>
+                      </div>
+
+          <div class="text-xs text-gray-400 mt-4 italic">
+    Note: The AI model used is not very accurate and so the results may be way off depending on a lot of factors. Make sure to upload high quality, well lit images with your face directly in front of the picture.
+  </div>
+</div>
+                 </div>
+      </div>
+    </div>
+
+    <div id="errorBox" class="hidden bg-red-900 text-white p-3 rounded-lg text-sm"></div>
+  </div>
+
+  <script>
+    // ======================
+    // Configuration
+    // ======================
+    const config = {
+      debug: true,
+      modelPath: 'https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@master/weights/'
+    };
+
+    // ======================
+    // DOM Elements
+    // ======================
+    const elements = {
+      loading: document.getElementById('loading'),
+      modelStatus: document.getElementById('modelStatus'),
+      uploadForm: document.getElementById('uploadForm'),
+      imageUpload: document.getElementById('imageUpload'),
+      results: document.getElementById('results'),
+      errorBox: document.getElementById('errorBox'),
+      canvas: document.getElementById('canvas'),
+      score: document.getElementById('score'),
+      symmetryScore: document.getElementById('symmetryScore'),
+      goldenRatioScore: document.getElementById('goldenRatioScore'),
+      dimorphismScore: document.getElementById('dimorphismScore'),
+      canthaltilt: document.getElementById('canthaltilt'),
+      showLandmarks: document.getElementById('showLandmarks'),
+      genderMale: document.getElementById('genderMale'),
+      genderFemale: document.getElementById('genderFemale')
+    };
+
+    // ======================
+    // Core Functions
+    // ======================
+
+    /**
+     * Load FaceAPI models with progress tracking
+     */
+    async function loadModels() {
+      try {
+        log('Starting model loading...');
+        updateModelStatus('Loading face detection...');
+        await faceapi.nets.ssdMobilenetv1.loadFromUri(config.modelPath);
+
+        updateModelStatus('Loading facial landmarks...');
+        await faceapi.nets.faceLandmark68Net.loadFromUri(config.modelPath);
+
+        updateModelStatus('Finalizing...');
+        await faceapi.nets.faceRecognitionNet.loadFromUri(config.modelPath);
+
+        log('All models loaded successfully!');
+        elements.loading.style.display = 'none';
+        return true;
+      } catch (error) {
+        showError(`Model failed to load. ${error.message}`);
+        return false;
+      }
+    }
+
+    /**
+     * Calculate comprehensive symmetry score using all landmark pairs
+     */
+
+
+    function getAverageEyeHeight(landmarks) {
+  const positions = landmarks.positions;
+
+  // Left eye points (indices 36-41)
+  const leftEyeTop = positions[37].y;    // Top-most point of left eye
+  const leftEyeBottom = positions[41].y; // Bottom-most point of left eye
+  const leftEyeCenter = (leftEyeTop + leftEyeBottom) / 2;
+
+  // Right eye points (indices 42-47)
+  const rightEyeTop = positions[43].y;    // Top-most point of right eye
+  const rightEyeBottom = positions[47].y; // Bottom-most point of right eye
+  const rightEyeCenter = (rightEyeTop + rightEyeBottom) / 2;
+
+  // Return average of both eyes' vertical centers
+  return (leftEyeCenter + rightEyeCenter) / 2;
+}
+
+    function calculateSymmetry(landmarks, faceWidth) {
+      // Define all left-right landmark pairs (indices from 68-point model)
+      const landmarkPairs = [
+        [0, 16], [1, 15], [2, 14], [3, 13], [4, 12], [5, 11], [6, 10], [7, 9], // Jawline
+        [17, 26], [18, 25], [19, 24], [20, 23], [21, 22], // Eyebrows
+        [36, 45], [37, 44], [38, 43], [39, 42], [40, 47], [41, 46], // Eyes
+        [31, 35], [32, 34], // Nose bridge
+        [48, 54], [49, 53], [50, 52], [59, 55], [58, 56], // Mouth outer
+        [60, 64], [61, 63], [67, 65] // Mouth inner
+      ];
+
+      let totalDeviation = 0;
+      const positions = landmarks.positions;
+      const midlineX = (positions[0].x + positions[16].x) / 2;
+
+      for (const [leftIdx, rightIdx] of landmarkPairs) {
+        const left = positions[leftIdx];
+        const right = positions[rightIdx];
+
+        const leftDeviation = Math.abs(left.x - midlineX);
+        const rightDeviation = Math.abs(right.x - midlineX);
+        const pairDeviation = Math.abs(leftDeviation - rightDeviation) / faceWidth;
+
+        totalDeviation += pairDeviation;
+      }
+
+      const avgDeviation = totalDeviation / landmarkPairs.length;
+      const symmetryScore = 10 * (1 - Math.exp(10*avgDeviation)*avgDeviation);
+
+      return Math.max(6, Math.min(10, symmetryScore));
+    }
+
+    /**
+     * Enhanced Golden Ratio Calculation
+     */
+    function calculateGoldenRatio(landmarks, gender) {
+      const positions = landmarks.positions;
+      const noseTip = positions[30];
+      const chin = positions[8];
+      const upperlip = positions[51];
+      const leftEyeouter = positions[36];
+      const leftEyeinner = positions[39];
+
+      const rightEyeouter = positions[45];
+      const rightEyeinner = positions[42];
+      const faceWidth = Math.hypot(Math.abs(positions[1].x - positions[15].x),Math.abs(positions[1].y - positions[15].y));
+
+      // 1. Eye spacing (Ideal: ~1.1)
+      const eyespacing = Math.hypot(
+        Math.abs((leftEyeouter.x + leftEyeinner.x)/2-(rightEyeouter.x + rightEyeinner.x)/2),
+        Math.abs((leftEyeouter.y + leftEyeinner.y)/2-(rightEyeouter.y + rightEyeinner.y)/2)
+      );
+            const ratio1 = eyespacing/faceWidth;
+
+      // 2. Face Width-to-Height Ratio
+
+      const faceHeight = Math.hypot(Math.abs((leftEyeinner.x+rightEyeinner.x)/2-upperlip.x),Math.abs((leftEyeinner.y+rightEyeinner.y)/2-upperlip.y));
+      const ratio2 = faceWidth / faceHeight;
+
+      // 3. eye lengths ratio
+      const eyeDistanceleft = Math.hypot(Math.abs(leftEyeinner.x - leftEyeouter.x),Math.abs(leftEyeinner.y - leftEyeouter.y));
+      const eyeDistanceright = Math.hypot(Math.abs(rightEyeinner.x - rightEyeouter.x),Math.abs(rightEyeinner.y - rightEyeouter.y));
+      const ratio3 = eyeDistanceleft / eyeDistanceright;
+
+      // Gender-specific ideal ratios
+      const ideals = {
+        male: { ratio1: 0.44, ratio2: 1, ratio3: 1 },
+        female: { ratio1: 0.5, ratio2: 1.2, ratio3: 1 }
+      };
+
+      // Calculate individual scores (Gaussian curve)
+      const score1 = 10 * Math.exp(-100 * Math.pow((ratio1 - ideals[gender].ratio1), 2));
+      const score2 = 10 * Math.exp(-100 * Math.pow((ratio2 - ideals[gender].ratio2), 2));
+      const score3 = 10 * Math.exp(-100 * Math.pow((ratio3 - ideals[gender].ratio3), 2));
+
+      return (score1 * 0.4 + score2 * 0.25 + score3 * 0.35);
+    }
+
+    /**
+     * Enhanced Dimorphism Calculation
+     */
+
+function calculateCanthalTilt(landmarks) {
+  const pos = landmarks.positions;
+
+  // Outer eye corners (exocanthions)
+  const leftOuter = pos[36];  // Left eye point 36 (outer corner)
+  const rightOuter = pos[45]; // Right eye point 45 (outer corner)
+
+  // Inner eye corners (endocanthions)
+  const leftInner = pos[39];  // Left eye point 39 (inner corner)
+  const rightInner = pos[42]; // Right eye point 42 (inner corner)
+
+  // Calculate angles (in degrees)
+  const leftTilt =(Math.atan2(leftOuter.x - leftInner.x,-leftOuter.y + leftInner.y)*57.3);
+  const rightTilt = (Math.atan2(rightOuter.x - rightInner.x,-rightOuter.y + rightInner.y)*57.3) ;
+
+  return {
+    left: leftTilt,
+    right: rightTilt,
+    average: (leftTilt + rightTilt) / 2
+  };
+}
+
+  function scoreCanthalTilt(tiltAngle, gender) {
+  const ideal = gender === 'female' ? 10 : 8;
+  // Gaussian scoring (±5° tolerance)
+  return 10 * Math.exp(-0.02 * Math.pow(tiltAngle - ideal, 2));
+
+}
+
+
+    function calculateDimorphism(landmarks, gender) {
+  const pos = landmarks.positions;
+
+  // 1. Midface Ratio (Nose-to-Mouth vs Face Height)
+  const noseTip = pos[33]; // More accurate nose tip
+  const upperLip = pos[51];
+  const lowerLip = landmarks.positions[57];
+  const chin = pos[8];
+  const midfaceHeight = Math.hypot(noseTip.x - upperLip.x, noseTip.y - upperLip.y);
+  const lowerFaceHeight = Math.hypot(lowerLip.x - chin.x, lowerLip.y - chin.y);
+  const midfaceRatio = midfaceHeight / lowerFaceHeight;
+
+  // 2. Bigonial Width (Jaw Width vs Face Width)
+  const jawLeft = pos[4];  // Left gonion (jaw angle)
+  const jawRight = pos[12]; // Right gonion
+  const bigonialWidth = Math.hypot(jawLeft.x - jawRight.x, jawLeft.y - jawRight.y);
+  const faceWidth = Math.hypot(pos[1].x - pos[15].x, pos[1].y - pos[15].y);
+  const jawRatio = bigonialWidth / faceWidth;
+
+  // 3. Eyebrow Position (Relative to Face Height)
+
+  const avgEyeY = getAverageEyeHeight(landmarks);
+
+  const browLeft = pos[17]; // Left eyebrow peak
+  const browRight = pos[22]; // Right eyebrow peak
+  const browHeight = ((avgEyeY - upperLip.y)) /
+                     (((browRight.y + browLeft.y)/2)-upperLip.y);
+
+
+
+
+  // Gender-specific ideal ratios (based on anthropometric studies)
+  const ideals = {
+    male: {
+      midface: 0.4 ,  // Shorter midface
+      jaw: 0.98,      // Wider jaw
+      brow: 0.9       // Lower brows
+    },
+    female: {
+      midface: 0.50,  // Longer midface
+      jaw: 0.70,      // Narrower jaw
+      brow: 0.7       // Higher brows
+    }
+  };
+
+
+
+
+  // Calculate individual scores (Gaussian curve)
+  const scoreMidface = 10 * Math.exp(-15 * Math.pow((midfaceRatio - ideals[gender].midface), 2));
+  const scoreJaw = 10 * Math.exp(-15 * Math.pow((jawRatio - ideals[gender].jaw), 2));
+  const scoreBrow = 10 * Math.exp(-15 * Math.pow((browHeight - ideals[gender].brow), 2));
+
+  // Weighted average
+  return (scoreMidface * 0.2 + scoreJaw * 0.4 + scoreBrow * 0.4);
+}
+
+    // Helper function to normalize values
+    function scaleValue(value, min, max, inverse = false) {
+      const scaled = Math.min(1, Math.max(0, (value - min) / (max - min)));
+      return inverse ? (1 - scaled) * 10 : scaled * 10;
+    }
+
+
+    /**
+     * Main analysis function
+     */
+    async function analyzeFace(image) {
+      try {
+        // Prepare canvas
+        elements.canvas.width = image.width;
+        elements.canvas.height = image.height;
+        const ctx = elements.canvas.getContext('2d');
+        ctx.clearRect(0, 0, elements.canvas.width, elements.canvas.height);
+        ctx.drawImage(image, 0, 0);
+
+        // Detect faces
+        const detections = await faceapi.detectAllFaces(image)
+          .withFaceLandmarks()
+          .withFaceDescriptors();
+
+        if (!detections || detections.length === 0) {
+          throw new Error('No faces detected. Try a clearer frontal photo.');
+        }
+
+        // Process primary face
+        const landmarks = detections[0].landmarks;
+        const jaw = landmarks.getJawOutline();
+        const faceWidth = Math.abs(jaw[0].x - jaw[16].x);
+        const gender = elements.genderMale.checked ? 'male' : 'female';
+
+        // Calculate scores
+        const symmetryScore = calculateSymmetry(landmarks, faceWidth);
+        const goldenRatioScore = calculateGoldenRatio(landmarks, gender);
+        const dimorphismScore = calculateDimorphism(landmarks, gender);
+        // In your main attractiveness calculation:
+        const canthaltilt = (calculateCanthalTilt(landmarks).average);
+        tiltScore = scoreCanthalTilt(canthaltilt, gender);
+        tiltAsymmetry = Math.abs(canthaltilt.left - canthaltilt.right);
+        if (tiltAsymmetry <= 5) {
+        } else {
+          tiltScore *= 0.1;
+        } // 20% penalty
+
+
+        // Weighted total score
+        totalScore =(
+                symmetryScore * 0.12 +
+                goldenRatioScore * 0.28 +
+                dimorphismScore * 0.55 +
+                tiltScore * 0.05
+        );
+         function custom_sigmoid_transform(x){
+
+    center = 7.0;
+    steepness = 3.0;
+    max_shift = 2.0;
+
+
+    shifted = x - center
+    transformed = center + max_shift * (2 / (1 + Math.exp(-steepness * shifted)) )- max_shift;
+
+
+    return Math.max(1, Math.min(10, transformed))
+         }
+
+        totalScore = custom_sigmoid_transform(totalScore);
+
+
+        // Draw landmarks if enabled
+        if (elements.showLandmarks.checked) {
+          faceapi.draw.drawFaceLandmarks(elements.canvas, landmarks);
+        }
+
+        return {
+          total: totalScore,
+          symmetry: symmetryScore,
+          goldenRatio: goldenRatioScore,
+          dimorphism: dimorphismScore,
+          canthaltilt: canthaltilt
+        };
+
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    // ======================
+    // UI Helpers
+    // ======================
+
+    function updateModelStatus(message) {
+      elements.modelStatus.textContent = message;
+      log(message);
+    }
+
+    function showError(message) {
+      elements.errorBox.textContent = message;
+      elements.errorBox.classList.remove('hidden');
+      elements.loading.style.display = 'none';
+      log(`Error: ${message}`, true);
+    }
+
+    function log(message, isError = false) {
+      if (config.debug) {
+        if (isError) console.error(message);
+        else console.log(message);
+      }
+    }
+
+    // ======================
+    // Event Listeners
+    // ======================
+
+    elements.uploadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const file = elements.imageUpload.files[0];
+      if (!file) {
+        showError('Please select an image first.');
+        return;
+      }
+
+      elements.loading.style.display = 'flex';
+      elements.results.classList.add('hidden');
+      elements.errorBox.classList.add('hidden');
+
+      try {
+        const img = await faceapi.bufferToImage(file);
+        const scores = await analyzeFace(img);
+
+        // Update UI
+        elements.score.textContent = scores.total.toFixed(1);
+        elements.symmetryScore.textContent = scores.symmetry.toFixed(1);
+        elements.goldenRatioScore.textContent = scores.goldenRatio.toFixed(1);
+        elements.dimorphismScore.textContent = scores.dimorphism.toFixed(1);
+
+
+
+        elements.results.classList.remove('hidden');
+
+      } catch (error) {
+        showError(error.message);
+      } finally {
+        elements.loading.style.display = 'none';
+      }
+    });
+
+
+
+    // ======================
+    // Initialization
+    // ======================
+    document.addEventListener('DOMContentLoaded', async () => {
+      const modelsLoaded = await loadModels();
+      if (!modelsLoaded) {
+        showError("Couldn't load AI models. Check console for details.");
+      }
+    });
+  </script>
+
+  <script>
+  // Highlight current page in nav
+  document.querySelectorAll('nav a').forEach(link => {
+    if (link.href === window.location.href) {
+      link.classList.add('bg-gray-900', 'text-white');
+      link.classList.remove('text-blue-300');
+    }
+  });
+</script>
+</body>
+</html>
