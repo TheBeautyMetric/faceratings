@@ -1,0 +1,33 @@
+name: Update Repository Data
+on:
+  workflow_dispatch:  # Allows manual triggering
+  schedule:
+    - cron: '0 0 * * *'  # Optional: Runs daily at midnight (UTC)
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js (or Python, etc.)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+        
+      - name: Run script to update data
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Inject the secret
+        run: |
+          # Example: Run a Node.js script that uses the token
+          npm install octokit  # GitHub API client
+          node update-data.js  # Your script (see Step 4)
+          
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Auto-update data"
+          git push
