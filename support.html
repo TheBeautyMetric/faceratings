@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Our Research</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('gigachad.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: blur(0px) brightness(0.7);
+      z-index: -1;
+    }
+    .main-content {
+      background-color: rgba(31, 41, 55, 0.85);
+      backdrop-filter: blur(2px);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .donation-option {
+      background-color: rgba(17, 24, 39, 0.7);
+      transition: all 0.3s ease;
+    }
+    .donation-option:hover {
+      background-color: rgba(17, 24, 39, 0.9);
+      transform: translateY(-2px);
+    }
+    nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 1rem;
+      z-index: 40;
+    }
+
+    .nav-button {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: white;
+      background-color: rgba(31, 41, 55, 0);
+      backdrop-filter: blur(4px);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-decoration: none;
+      margin-right: 0.5rem;
+    }
+
+    .nav-button:hover {
+      background-color: rgba(17, 24, 39, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .nav-button.active {
+      background-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .top-right-logo {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 50;
+    }
+    .crypto-address {
+      font-family: monospace;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body class="text-white flex items-center justify-center p-4">
+
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="flex space-x-4">
+      <a href="index.html" class="nav-button">AI Face Rating</a>
+      <a href="psl-score.html" class="nav-button">Expert Face Rating</a>
+      <a href="about.html" class="nav-button">About Us</a>
+      <a href="support.html" class="nav-button active">Support Us</a>
+    </div>
+  </nav>
+
+  <!-- Logo -->
+  <a href="\" class="top-right-logo">
+    <img src="logo.png" alt="Logo" style="height: 60px;">
+  </a>
+
+  <!-- Main Content -->
+  <div class="bg-gray-800 bg-opacity-25 p-6 rounded-xl shadow-2xl w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-4">Support Us</h1>
+
+    <div class="space-y-6">
+      <!-- Introduction -->
+      <div class="bg-gray-900 bg-opacity-25 p-4 rounded-lg">
+        <p class="text-gray-300 text-center">
+          Your support helps us maintain and improve our free services.
+        </p>
+      </div>
+
+      <!-- Patreon Option
+      <div class="bg-gray-800 bg-opacity-25 p-6 rounded-xl shadow-2xl w-full max-w-md">
+        <div class="flex items-center mb-3">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Patreon_logomark.svg"
+               alt="Patreon" class="h-8 w-8 mr-3">
+          <h3 class="text-lg font-semibold">Become a Member</h3>
+        </div>
+        <p class="text-sm text-gray-300 mb-3">
+          Get exclusive benefits by joining our Patreon community
+        </p>
+        <a href="https://patreon.com/YourPage" target="_blank"
+           class="w-full bg-pink-600 hover:bg-pink-700 text-white py-2 px-4 rounded-md inline-block text-center">
+          Join on Patreon
+        </a>
+      </div>
+
+      <!-Crypto Option -->
+      <div class="bg-gray-800 bg-opacity-25 p-6 rounded-xl shadow-2xl w-full max-w-md">
+        <div class="flex items-center mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 class="text-lg font-semibold">Crypto Donation</h3>
+        </div>
+        <div class="mb-3">
+          <label class="block text-sm text-gray-400 mb-1">Bitcoin (BTC)</label>
+          <div class="crypto-address bg-gray-800 p-2 rounded text-sm">
+            bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm text-gray-400 mb-1">Ethereum (ETH)</label>
+          <div class="crypto-address bg-gray-800 p-2 rounded text-sm">
+            0x71C7656EC7ab88b098defB751B7401B5f6d8976F
+          </div>
+        </div>
+      </div>
+
+      <!-- Bank Transfer Option
+      <div class="bg-gray-800 bg-opacity-25 p-6 rounded-xl shadow-2xl w-full max-w-md">
+        <div class="flex items-center mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+          </svg>
+          <h3 class="text-lg font-semibold">Bank Transfer</h3>
+        </div>
+        <div class="space-y-2 text-sm">
+          <div class="flex">
+            <span class="text-gray-400 w-24">Bank Name:</span>
+            <span>Standard Chartered</span>
+          </div>
+          <div class="flex">
+            <span class="text-gray-400 w-24">Account Name:</span>
+            <span>The Beauty Metric</span>
+          </div>
+          <div class="flex">
+            <span class="text-gray-400 w-24">Account #:</span>
+            <span class="font-mono">0123456789</span>
+          </div>
+          <div class="flex">
+            <span class="text-gray-400 w-24">IBAN:</span>
+            <span class="font-mono">PK36SCBL0000001234567890</span>
+          </div>
+          <div class="flex">
+            <span class="text-gray-400 w-24">SWIFT:</span>
+            <span class="font-mono">SCBLPKKXXXX</span>
+          </div>
+        </div>
+      </div>
+
+      <!- Contact Note -->
+      <div class="text-center text-sm text-gray-400">
+        <p>Need help? <a href="mailto:thebeautymetric@gmail.com" class="text-blue-400 hover:underline">Contact us</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

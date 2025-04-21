@@ -54,10 +54,10 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-image: url('gigachad.jpg'); /* Change this path */
+      background-image: url('chico.jpg'); /* Change this path */
       background-size: cover;
       background-position: center;
-      filter: blur(8px) brightness(0.7);
+      filter: blur(0px) brightness(0.7);
       z-index: -1;
     }
 
@@ -86,12 +86,12 @@
 <!-- Navigation - Force Left Aligned -->
 <nav>
     <div class="flex space-x-4">
-      <a href="index.html" class="nav-button">AI Rating</a>
-      <a href="psl-score.html" class="nav-button">PSL Score</a>
-      <a href="about.html" class="nav-button">About</a>
+      <a href="index.html" class="nav-button active">AI Face Rating</a>
+      <a href="psl-score.html" class="nav-button">Expert Face Rating</a>
+      <a href="about.html" class="nav-button">About Us</a>
+      <a href="support.html" class="nav-button">Support Us</a>
     </div>
   </nav>
-
 
 <style>
 
@@ -130,7 +130,7 @@ nav {
 }
 
 .nav-button.active {
-  background-color: rgba(59, 130, 246, 0.9); /* blue-500 when active */
+  background-color: rgba(59, 130, 246, 0.2); /* blue-500 when active */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -145,7 +145,7 @@ nav {
 
 
   <div class="bg-gray-800 bg-opacity-25 p-6 rounded-xl shadow-2xl w-full max-w-md">
-    <h1 class="text-2xl font-bold text-center mb-2">Face Rating</h1>
+    <h1 class="text-2xl font-bold text-center mb-2">AI Face Rating</h1>
     <p class="text-sm text-gray-400 text-center mb-6">Upload a clear frontal face photo</p>
 
     <form id="uploadForm" class="mb-4">
@@ -171,7 +171,7 @@ nav {
     </form>
 
     <div id="results" class="hidden">
-      <div class="bg-gray-700 p-4 rounded-lg mb-4">
+      <div class="bg-gray-700 bg-opacity-25 p-4 rounded-lg mb-4">
         <h2 class="text-xl font-semibold mb-2 text-center">Analysis Results</h2>
         <div class="text-center mb-4">
           <span class="text-4xl font-bold text-blue-400" id="score">0.0</span>
@@ -194,7 +194,12 @@ nav {
           <div class="detail-score">
             <span>Facial Structure and Sexual Dimorphism:</span>
             <span id="dimorphismScore" class="font-mono">0.0</span>
-          </div>
+                      </div>
+
+          <div class="text-xs text-gray-400 mt-4 italic">
+    Note: The AI model used is not very accurate and so the results may be way off depending on a lot of factors. Make sure to upload high quality, well lit images with your face directly in front of the picture.
+  </div>
+</div>
                  </div>
       </div>
     </div>
